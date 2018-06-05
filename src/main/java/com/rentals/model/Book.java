@@ -1,6 +1,8 @@
 package com.rentals.model;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,25 +20,33 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int bookingId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User userId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "model_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-   	private Vehicle vehicleId;
+   	private VehicleModel vehicleModel;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vehicle_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+   	private Vehicle vehicle;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDateTime;
+    @Column(columnDefinition="BOOLEAN DEFAULT true")
+    private boolean isBooked;
     
 	public Book() {}
 
-	public Book(int bookingId, User userId, Vehicle vehicleId, Date createDateTime) {
+	public Book(int bookingId, User userId, VehicleModel vehicleModel,Vehicle vehicle, Date createDateTime,boolean isBooked) {
 		super();
 		this.bookingId = bookingId;
 		this.userId = userId;
-		this.vehicleId = vehicleId;
+		this.vehicleModel = vehicleModel;
+		this.vehicle = vehicle;
 		this.createDateTime = createDateTime;
+		this.isBooked = isBooked;
 	}
 
 	public int getBookingId() {
@@ -55,12 +65,20 @@ public class Book {
 		this.userId = userId;
 	}
 
-	public Vehicle getVehicleId() {
-		return vehicleId;
+	public VehicleModel getVehicleModel() {
+		return vehicleModel;
 	}
 
-	public void setVehicleId(Vehicle vehicleId) {
-		this.vehicleId = vehicleId;
+	public void setVehicleModel(VehicleModel vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public Date getCreateDateTime() {
@@ -69,5 +87,14 @@ public class Book {
 
 	public void setCreateDateTime(Date createDateTime) {
 		this.createDateTime = createDateTime;
+	}
+
+	public boolean isBooked() {
+		return isBooked;
+	}
+
+	public void setBooked(boolean isBooked) {
+		this.isBooked = isBooked;
 	}	
+	
 }
