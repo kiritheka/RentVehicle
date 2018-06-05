@@ -11,10 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class VehicleModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonProperty
 	private int modelId;
 	@NotBlank
 	private String name;
@@ -65,6 +68,12 @@ public class VehicleModel {
 
 	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
+	}
+
+	@Override
+	public String toString() {
+		return "VehicleModel [modelId=" + modelId + ", name=" + name + ", pricePerHour=" + pricePerHour
+				+ ", vehicleType=" + vehicleType + "]";
 	}
 
 
