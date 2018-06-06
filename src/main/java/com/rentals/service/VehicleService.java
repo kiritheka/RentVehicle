@@ -1,13 +1,9 @@
 package com.rentals.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 import com.rentals.model.Vehicle;
-import com.rentals.model.VehicleModel;
 import com.rentals.repository.VehicleModelRepository;
 import com.rentals.repository.VehicleRepository;
 
@@ -25,7 +21,7 @@ public class VehicleService {
 	}
 
 	public Vehicle saveVehicle(Vehicle vehicle) {
-		vehicle.setModelName(vehicleModelRepository.findOne(vehicle.getModelName().getModelId()));
+		vehicle.setVehicleModel(vehicleModelRepository.findOne(vehicle.getVehicleModel().getId()));
 		return vehicleRepository.save(vehicle);
 
 	}
@@ -35,11 +31,7 @@ public class VehicleService {
 	}
 
 	public List<Vehicle> findAllvehicle() {
-		List<Vehicle> vehicles = new ArrayList<Vehicle>();
-		for (Vehicle vehicle : vehicleRepository.findAll()) {
-			vehicles.add(vehicle);
-		}
-		return vehicles;
+		return vehicleRepository.findAll();
 	}
 
 	public void deleteVehicle(Vehicle vehicle) {

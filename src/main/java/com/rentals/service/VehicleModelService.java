@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import com.rentals.model.VehicleModel;
-import com.rentals.model.VehicleType;
 import com.rentals.repository.VehicleModelRepository;
 
 @Service
@@ -21,18 +20,17 @@ public class VehicleModelService {
 	}
 
 	public VehicleModel saveVehicleModel(VehicleModel vehicleModel) {
-		//vehicleModel.setVehicleType(vehicleType);
 		vehicleModel.setVehicleType(vehicleModel.getVehicleType());
 		vehicleModelRepository.save(vehicleModel);
 		return vehicleModel;
 	}
 
 	public List<VehicleModel> findAllvehicleModel() {
-		List<VehicleModel> vehicleModels = new ArrayList<VehicleModel>();
+		List<VehicleModel> listOfVehicleModel = new ArrayList<VehicleModel>();
 		for (VehicleModel vehicleModel : vehicleModelRepository.findAll()) {
-			vehicleModels.add(vehicleModel);
+			listOfVehicleModel.add(vehicleModel);
 		}
-		return vehicleModels;
+		return listOfVehicleModel;
 	}
 
 	public VehicleModel findVehicleModelById(int id) {

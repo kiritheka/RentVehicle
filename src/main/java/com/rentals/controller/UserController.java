@@ -1,7 +1,5 @@
 package com.rentals.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +30,12 @@ public class UserController {
 
 	@PostMapping(path = "/user")
 	public ResponseEntity<User> addUser(@RequestBody User user) {
-		User usernew = userService.saveUser(user);
-		return new ResponseEntity<User>(usernew, HttpStatus.CREATED);
+		User newUser = userService.saveUser(user);
+		if (newUser == null) {
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+		}
 	}
 
 	@DeleteMapping(value = "/user/{id}")

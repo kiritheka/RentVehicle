@@ -1,8 +1,6 @@
 package com.rentals.model;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,32 +16,32 @@ public class VehicleModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonProperty
-	private int modelId;
+	private int id;
 	@NotBlank
 	private String name;
 	@Column(nullable = false)
 	private int pricePerHour;
-	//@Convert(converter = VehicleTypeConverter.class)
-    @Enumerated(EnumType.STRING)
+	// @Convert(converter = VehicleTypeConverter.class)
+	@Enumerated(EnumType.STRING)
 	private VehicleType vehicleType;
 
 	public VehicleModel() {
 	}
 
-	public VehicleModel(int modelId, String name, int pricePerHour,VehicleType vehicleType) {
+	public VehicleModel(int id, String name, int pricePerHour, VehicleType vehicleType) {
 		super();
-		this.modelId = modelId;
+		this.id = id;
 		this.name = name;
 		this.pricePerHour = pricePerHour;
-		this.vehicleType=vehicleType;
+		this.vehicleType = vehicleType;
 	}
 
-	public int getModelId() {
-		return modelId;
+	public int getId() {
+		return id;
 	}
 
-	public void setModelId(int modelId) {
-		this.modelId = modelId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -72,9 +70,8 @@ public class VehicleModel {
 
 	@Override
 	public String toString() {
-		return "VehicleModel [modelId=" + modelId + ", name=" + name + ", pricePerHour=" + pricePerHour
-				+ ", vehicleType=" + vehicleType + "]";
+		return "VehicleModel [id=" + id + ", name=" + name + ", pricePerHour=" + pricePerHour + ", vehicleType="
+				+ vehicleType + "]";
 	}
-
 
 }

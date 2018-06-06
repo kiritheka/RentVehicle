@@ -10,20 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Vehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int vehicleId;
-	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name = "model_Id")
-	private VehicleModel modelName;
+	private int id;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "vehicleModel_id")
+	private VehicleModel vehicleModel;
 	@Column(unique = true)
 	private String registrationNumber;
 	@Column(unique = true)
@@ -32,29 +26,28 @@ public class Vehicle {
 	public Vehicle() {
 	}
 
-	public Vehicle(int vehicleId, VehicleModel modelName, String registrationNumber,
-			String chassisNumber) {
+	public Vehicle(int id, VehicleModel vehicleModel, String registrationNumber, String chassisNumber) {
 		super();
-		this.vehicleId = vehicleId;
-		this.modelName = modelName;
+		this.id = id;
+		this.vehicleModel = vehicleModel;
 		this.registrationNumber = registrationNumber;
 		this.chassisNumber = chassisNumber;
 	}
 
 	public int getId() {
-		return vehicleId;
+		return id;
 	}
 
-	public void setId(int vehicleId) {
-		this.vehicleId = vehicleId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public VehicleModel getModelName() {
-		return modelName;
+	public VehicleModel getVehicleModel() {
+		return vehicleModel;
 	}
 
-	public void setModelName(VehicleModel modelName) {
-		this.modelName = modelName;
+	public void setVehicleModel(VehicleModel vehicleModel) {
+		this.vehicleModel = vehicleModel;
 	}
 
 	public String getRegistrationNumber() {

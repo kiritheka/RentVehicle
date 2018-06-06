@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rentals.model.User;
 import com.rentals.model.VehicleModel;
-import com.rentals.model.VehicleType;
-import com.rentals.service.UserService;
 import com.rentals.service.VehicleModelService;
 
 @RestController
@@ -24,13 +21,13 @@ public class VehicleModelController {
 	@Autowired
 	VehicleModelService vehicleModelService;
 
-	@PostMapping(path = "/vehicleModel")
+	@PostMapping(path = "/vehiclemodel")
 	public ResponseEntity<VehicleModel> addVehicleModel(@RequestBody VehicleModel vehicleModel) {
 		VehicleModel vehicleModelNew = vehicleModelService.saveVehicleModel(vehicleModel);
 		return new ResponseEntity<VehicleModel>(vehicleModelNew, HttpStatus.CREATED);
 	}
 
-	@GetMapping(path = "/vehicleModel/{id}")
+	@GetMapping(path = "/vehiclemodel/{id}")
 	public ResponseEntity<VehicleModel> getVehicleModelById(@PathVariable("id") int id) {
 		VehicleModel vehicleModel = vehicleModelService.findVehicleModelById(id);
 		if (vehicleModel == null)
@@ -39,16 +36,16 @@ public class VehicleModelController {
 			return new ResponseEntity<VehicleModel>(vehicleModel, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/vehicleModel")
+	@GetMapping(path = "/vehiclemodel")
 	public ResponseEntity<List<VehicleModel>> getAllVehicleModel() {
-		List<VehicleModel> vehicleModelList = vehicleModelService.findAllvehicleModel();
-		if (vehicleModelList == null)
+		List<VehicleModel> listOfVehicleModel = vehicleModelService.findAllvehicleModel();
+		if (listOfVehicleModel == null)
 			return new ResponseEntity<List<VehicleModel>>(HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<List<VehicleModel>>(vehicleModelList, HttpStatus.OK);
+			return new ResponseEntity<List<VehicleModel>>(listOfVehicleModel, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/vehicleModel/{id}")
+	@DeleteMapping(value = "/vehiclemodel/{id}")
 	public ResponseEntity<VehicleModel> removeVehicleModel(@PathVariable("id") int id) {
 		VehicleModel vehicleModel = vehicleModelService.findVehicleModelById(id);
 		if (vehicleModel == null)
