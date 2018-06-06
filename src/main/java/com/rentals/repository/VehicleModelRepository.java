@@ -7,6 +7,5 @@ import com.rentals.model.VehicleModel;
 
 @Repository
 public interface VehicleModelRepository extends JpaRepository<VehicleModel, Integer> {
-	
 
 }

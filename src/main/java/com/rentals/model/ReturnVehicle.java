@@ -1,10 +1,6 @@
 package com.rentals.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,42 +14,43 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-public class Returning  {
+public class ReturnVehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int returnId;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "booking_Id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-   	private Book book;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date returnDateTime;
-    private int totalRentalCost;
-    
-	public Returning() {}
+	private int id;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "bookVehicle_Id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private BookVehicle bookVehicle;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date returnDateTime;
+	private int totalRentalCost;
 
-	public Returning(int returnId, Book book, Date returnDateTime, int totalRentalCost) {
+	public ReturnVehicle() {
+	}
+
+	public ReturnVehicle(int id, BookVehicle bookVehicle, Date returnDateTime, int totalRentalCost) {
 		super();
-		this.returnId = returnId;
-		this.book = book;
+		this.id = id;
+		this.bookVehicle = bookVehicle;
 		this.returnDateTime = returnDateTime;
 		this.totalRentalCost = totalRentalCost;
 	}
 
-	public int getReturnId() {
-		return returnId;
+	public int getId() {
+		return id;
 	}
 
-	public void setReturnId(int returnId) {
-		this.returnId = returnId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public Book getBook() {
-		return book;
+	public BookVehicle getBookVehicle() {
+		return bookVehicle;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
+	public void setBookVehicle(BookVehicle bookVehicle) {
+		this.bookVehicle = bookVehicle;
 	}
 
 	public Date getReturnDateTime() {
@@ -71,7 +68,4 @@ public class Returning  {
 	public void setTotalRentalCost(int totalRentalCost) {
 		this.totalRentalCost = totalRentalCost;
 	}
-
-    
-    
 }

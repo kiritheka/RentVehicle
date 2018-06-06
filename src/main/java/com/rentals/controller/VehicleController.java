@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rentals.model.User;
 import com.rentals.model.Vehicle;
-import com.rentals.model.VehicleModel;
 import com.rentals.service.VehicleService;
 
 @RestController
@@ -34,11 +32,11 @@ public class VehicleController {
 
 	@GetMapping(path = "/vehicle")
 	public ResponseEntity<List<Vehicle>> getAllVehicle() {
-		List<Vehicle> vehicleList = vehicleService.findAllvehicle();
-		if (vehicleList == null)
+		List<Vehicle> listOfVehicle = vehicleService.findAllvehicle();
+		if (listOfVehicle == null)
 			return new ResponseEntity<List<Vehicle>>(HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<List<Vehicle>>(vehicleList, HttpStatus.OK);
+			return new ResponseEntity<List<Vehicle>>(listOfVehicle, HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/vehicle")

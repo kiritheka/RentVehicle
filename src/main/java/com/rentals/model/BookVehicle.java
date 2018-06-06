@@ -16,16 +16,16 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-public class Book {
+public class BookVehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int bookingId;
+	private int id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userId;
+    private User user;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "model_id", nullable = false)
+    @JoinColumn(name = "vehicleModel_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
    	private VehicleModel vehicleModel;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -33,36 +33,37 @@ public class Book {
     @OnDelete(action = OnDeleteAction.CASCADE)
    	private Vehicle vehicle;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDateTime;
+    private Date bookedDateTime;
     @Column(columnDefinition="BOOLEAN DEFAULT true")
     private boolean isBooked;
     
-	public Book() {}
+	public BookVehicle() {}
 
-	public Book(int bookingId, User userId, VehicleModel vehicleModel,Vehicle vehicle, Date createDateTime,boolean isBooked) {
+	public BookVehicle(int id, User user, VehicleModel vehicleModel, Vehicle vehicle, Date bookedDateTime,
+			boolean isBooked) {
 		super();
-		this.bookingId = bookingId;
-		this.userId = userId;
+		this.id = id;
+		this.user = user;
 		this.vehicleModel = vehicleModel;
 		this.vehicle = vehicle;
-		this.createDateTime = createDateTime;
+		this.bookedDateTime = bookedDateTime;
 		this.isBooked = isBooked;
 	}
 
-	public int getBookingId() {
-		return bookingId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public VehicleModel getVehicleModel() {
@@ -81,12 +82,12 @@ public class Book {
 		this.vehicle = vehicle;
 	}
 
-	public Date getCreateDateTime() {
-		return createDateTime;
+	public Date getBookedDateTime() {
+		return bookedDateTime;
 	}
 
-	public void setCreateDateTime(Date createDateTime) {
-		this.createDateTime = createDateTime;
+	public void setBookedDateTime(Date bookedDateTime) {
+		this.bookedDateTime = bookedDateTime;
 	}
 
 	public boolean isBooked() {
@@ -95,6 +96,7 @@ public class Book {
 
 	public void setBooked(boolean isBooked) {
 		this.isBooked = isBooked;
-	}	
+	}
+
 	
 }
