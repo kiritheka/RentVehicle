@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import com.rentals.model.User;
 import com.rentals.service.UserService;
@@ -63,7 +64,7 @@ public class UserServiceTest {
 	}
 
 	/* saving two user with same email or proofnumber */
-	@Test(expected = DataIntegrityViolationException.class)
+	@Test(expected = TransactionSystemException.class)
 	public void testUniqueConstraint() {
 		userService.saveUser(new User(2, "hello", "hello@gmail.com", "abcd3456", "801558990"));
 		userService.saveUser(new User(3, "hello", "hello@gmail.com", "abcd3456", "801558990"));

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.rentals.model.VehicleModel;
 import com.rentals.repository.VehicleModelRepository;
@@ -13,6 +15,8 @@ import com.rentals.repository.VehicleModelRepository;
 @Transactional
 public class VehicleModelService {
 
+	private static final Logger logger = LoggerFactory.getLogger(VehicleModelService.class);
+
 	private final VehicleModelRepository vehicleModelRepository;
 
 	public VehicleModelService(VehicleModelRepository vehicleModelRepository) {
@@ -20,8 +24,13 @@ public class VehicleModelService {
 	}
 
 	public VehicleModel saveVehicleModel(VehicleModel vehicleModel) {
-		vehicleModel.setVehicleType(vehicleModel.getVehicleType());
-		vehicleModelRepository.save(vehicleModel);
+		try {
+			vehicleModel.setVehicleType(vehicleModel.getVehicleType());
+			vehicleModelRepository.save(vehicleModel);
+		} catch (Exception ex) {
+			logger.error("Error in saving vehicle model !!!", ex);
+		}
+
 		return vehicleModel;
 	}
 

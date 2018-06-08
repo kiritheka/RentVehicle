@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.rentals.model.BookVehicle;
@@ -33,7 +35,6 @@ public class BookVehicleService {
 	}
 
 	public BookVehicle bookVehicle(BookVehicle bookVehicle) {
-
 		bookVehicle.setUser(userRepository.findOne(bookVehicle.getUser().getId()));
 		bookVehicle.setVehicleModel(vehicleModelRepository.findOne(bookVehicle.getVehicleModel().getId()));
 
@@ -59,13 +60,11 @@ public class BookVehicleService {
 			bookVehicle.setVehicle(vehicleRepository.findOne(availableVehicleForBooking.get(0).getId()));
 			bookVehicle.setBooked(true);
 			bookVehicle.setBookedDateTime(new Date());
-
 			return bookVehicleRepository.save(bookVehicle);
 
 		} else {
 			return null;
 		}
-
 	}
 
 	public BookVehicle findBookingById(int id) {

@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
+
 import com.rentals.model.Vehicle;
 import com.rentals.model.VehicleModel;
 import com.rentals.model.VehicleType;
@@ -69,8 +71,10 @@ public class VehicleServiceTest {
 
 	}
 
+
+
 	/* saving two vehicle with same RegistrationNumber or ChassisNumber */
-	@Test(expected = DataIntegrityViolationException.class)
+	@Test(expected = TransactionSystemException.class)
 	public void testUniqueConstraint() {
 		vehicleService.saveVehicle(vehicle);
 		vehicleService.saveVehicle(new Vehicle(2, savedVehicleModel, "tn025678", "asdf56gh"));
