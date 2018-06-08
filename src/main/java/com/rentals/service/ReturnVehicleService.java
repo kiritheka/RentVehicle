@@ -23,28 +23,25 @@ public class ReturnVehicleService {
 		this.returnVehicleRepository = returningRepository;
 	}
 
-	public ReturnVehicle returnVehicle(ReturnVehicle returning) {
+	public ReturnVehicle returnVehicle(ReturnVehicle returnVehicle) {
 
-		System.out.println("bfre" + returning.getBookVehicle());
-		returning.setBookVehicle(bookVehicleRepository.findOne(returning.getBookVehicle().getId()));
+		returnVehicle.setBookVehicle(bookVehicleRepository.findOne(returnVehicle.getBookVehicle().getId()));
 
-		BookVehicle bookVehicle = returning.getBookVehicle();
-		returning.setReturnDateTime(new Date());
+		BookVehicle bookVehicle = returnVehicle.getBookVehicle();
+		returnVehicle.setReturnDateTime(new Date());
 
 		if (bookVehicle.isBooked() == true) {
 
 			int pricePerHourForModel = bookVehicle.getVehicleModel().getPricePerHour();
-			long totalHourVehicleBooked = (returning.getReturnDateTime().getTime())
-					- (bookVehicle.getBookedDateTime().getTime());
+			long totalHourVehicleBooked = (returnVehicle.getReturnDateTime().getTime()) - (bookVehicle.getBookedDateTime().getTime());
 
 			/* calculating total price from booking and returning time */
-			double totalPrice = (((totalHourVehicleBooked / (60 * 60 * 1000) % 24) * pricePerHourForModel)
-					+ (((0.01666666666) * (totalHourVehicleBooked / (60 * 1000) % 60)) * pricePerHourForModel));
+			double totalPrice = (((totalHourVehicleBooked / (60 * 60 * 1000) % 24) * pricePerHourForModel)+ (((0.01666666666) * (totalHourVehicleBooked / (60 * 1000) % 60)) * pricePerHourForModel));
 			int totalRentalCost = (int) totalPrice;
-			returning.setTotalRentalCost(totalRentalCost);
+			returnVehicle.setTotalRentalCost(totalRentalCost);
 			bookVehicle.setBooked(false);
 
-			return returnVehicleRepository.save(returning);
+			return returnVehicleRepository.save(returnVehicle);
 		} else {
 			return null;
 		}
