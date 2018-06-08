@@ -45,15 +45,4 @@ public class VehicleController {
 		return new ResponseEntity<Vehicle>(vehicleNew, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping(value = "/vehicle/{id}")
-	public ResponseEntity<Vehicle> removeVehicle(@PathVariable("id") int id) {
-		Vehicle vehicle = vehicleService.findVehicleById(id);
-		if (vehicle == null)
-			return new ResponseEntity<Vehicle>(HttpStatus.NOT_FOUND);
-		else
-			vehicleService.deleteVehicle(vehicle);
-		return new ResponseEntity<Vehicle>(HttpStatus.OK);
-
-	}
-
 }
