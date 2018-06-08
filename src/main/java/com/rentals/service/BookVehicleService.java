@@ -32,16 +32,16 @@ public class BookVehicleService {
 		this.vehicleModelRepository = vehicleModelRepository;
 	}
 
-	public BookVehicle bookVehicle(BookVehicle booking) {
+	public BookVehicle bookVehicle(BookVehicle bookVehicle) {
 
-		booking.setUser(userRepository.findOne(booking.getUser().getId()));
-		booking.setVehicleModel(vehicleModelRepository.findOne(booking.getVehicleModel().getId()));
+		bookVehicle.setUser(userRepository.findOne(bookVehicle.getUser().getId()));
+		bookVehicle.setVehicleModel(vehicleModelRepository.findOne(bookVehicle.getVehicleModel().getId()));
 
 		ArrayList<Vehicle> listOfAllVehicleForModelId = vehicleRepository
-				.getListOfVehicleByModelid(booking.getVehicleModel().getId());
+				.getListOfVehicleByModelid(bookVehicle.getVehicleModel().getId());
 
 		ArrayList<BookVehicle> listOfBookingForModelId = bookVehicleRepository
-				.getListOfVehicleBookedByModelid(booking.getVehicleModel().getId(), 1);
+				.getListOfVehicleBookedByModelid(bookVehicle.getVehicleModel().getId(), 1);
 		ArrayList<Vehicle> listOfBookedVehicleForModelId = new ArrayList<Vehicle>();
 
 		for (BookVehicle book : listOfBookingForModelId) {
@@ -56,11 +56,11 @@ public class BookVehicleService {
 				}
 			}
 
-			booking.setVehicle(vehicleRepository.findOne(availableVehicleForBooking.get(0).getId()));
-			booking.setBooked(true);
-			booking.setBookedDateTime(new Date());
+			bookVehicle.setVehicle(vehicleRepository.findOne(availableVehicleForBooking.get(0).getId()));
+			bookVehicle.setBooked(true);
+			bookVehicle.setBookedDateTime(new Date());
 
-			return bookVehicleRepository.save(booking);
+			return bookVehicleRepository.save(bookVehicle);
 
 		} else {
 			return null;
